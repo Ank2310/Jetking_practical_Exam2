@@ -1,0 +1,40 @@
+2) Write a Smart Contract for understanding Data Locations in
+Solidity Programming Language.
+
+pragma solidity ^0.8.0;
+
+contract DataLocations {
+    uint256 public globalValue;
+    
+    function assignToMemory() public {
+        uint256 value = 100; // Stored in memory
+        globalValue = value;
+    }
+    
+    function assignToStorage() public {
+        uint256 value = 200; // Stored in memory
+        
+        // The assignment to globalValue always creates a new storage slot
+        globalValue = value;
+    }
+    
+    function assignToMemoryReference() public {
+        uint256 value = 300; // Stored in memory
+        uint256 reference = globalValue; // Creates a memory reference
+        
+        reference = value; // Does not affect globalValue
+        
+        // If you modify the value, a new storage slot will be created
+        globalValue = reference;
+    }
+    
+    function assignToStorageReference() public {
+        uint256 value = 400; // Stored in memory
+        uint256 storage reference = globalValue; // Creates a storage reference
+        
+        reference = value; // Updates the value of globalValue
+        
+        // Updates the value in the same storage slot
+        globalValue = reference;
+    }
+}
